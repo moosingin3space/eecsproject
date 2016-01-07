@@ -1,0 +1,13 @@
+language: go
+
+go:
+    - 1.5
+
+env:
+    - GOOS=linux GOARCH=amd64
+    - GOOS=darwin GOARCH=amd64
+    - GOOS=windows GOARCH=amd64
+
+install:
+    - go get -u github.com/jteeuwen/go-bindata/...
+    - ./bundle_assets.sh
