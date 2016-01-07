@@ -1,0 +1,43 @@
+{{if .Cplusplus}}
+CXX=g++
+{{else}}
+CC=gcc
+{{end}}
+DBGOPTS=-g -O0
+RELOPTS=-O3
+{{if .Cplusplus}}
+CXXFLAGS=-Wall -Werror -pedantic
+{{else}}
+CFLAGS=-Wall -Werror -pedantic
+{{end}}
+
+{{if .Cplusplus}}
+# Put any other .cpp files here!
+SOURCES=main.cpp
+{{else}}
+# Put any other .c files here!
+SOURCES=main.c
+{{end}}
+
+{{if .Cplusplus}}
+# Put any other .h/.hpp files here!
+{{else}}
+# Put any other .h files here!
+{{end}}
+HEADERS=
+
+debug: ${SOURCES} ${HEADERS}
+{{if .Cplusplus}}
+	${CXX} ${DBGOPTS} ${CXXFLAGS} ${SOURCES} -o {{.ExecName}}
+{{else}}
+	${CC} ${DBGOPTS} ${CFLAGS} ${SOURCES} -o {{.ExecName}}
+{{end}}
+
+release: ${SOURCES} ${HEADERS}
+{{if .Cplusplus}}
+	${CXX} ${RELOPTS} ${CXXFLAGS} ${SOURCES} -o {{.ExecName}}
+{{else}}
+	${CC} ${RELOPTS} ${CFLAGS} ${SOURCES} -o {{.ExecName}}
+{{end}}
+
+# Put any other makefile tasks here

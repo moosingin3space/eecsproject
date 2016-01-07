@@ -1,0 +1,23 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+    # Match CLSE as of 2016-January
+    config.vm.box = "relativkreativ/centos-7-minimal"
+
+    # Share the current (project) directory
+    config.vm.synced_folder ".", "/vagrant"
+
+    # Set the memory limit
+    config.vm.provider "virtualbox" do |vb|
+        vb.memory = "512"
+    end
+
+    # Set up developer tools
+    config.vm.provision "shell", inline: <<-SHELL
+        yum -y update
+        yum -y groupinstall "Development Tools"
+        yum -y install gdb valgrind
+        echo "cd /vagrant" >> /home/vagrant/.bashrc
+    SHELL
+end

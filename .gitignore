@@ -1,0 +1,6 @@
+*.swp
+*.swo
+bin/
+pkg/
+vendor/
+src/templates/data.go
