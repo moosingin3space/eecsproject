@@ -11,3 +11,5 @@ env:
 install:
     - go get -u github.com/jteeuwen/go-bindata/...
     - ./bundle_assets.sh
+
+script: go build -v github.com/moosingin3space/eecsproject
