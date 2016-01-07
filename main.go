@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"flag"
 	"path"
-	"templates"
+	templates "github.com/moosingin3space/eecsproject/internal"
 	"text/template"
 )
 
