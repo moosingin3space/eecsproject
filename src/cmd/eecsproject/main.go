@@ -50,6 +50,11 @@ func main() {
 	cwd, err := os.Getwd()
 	handleError(err)
 	project_path := path.Join(cwd, project_name)
+	info, err := os.Stat(project_path)
+	if err == nil && info.IsDir() {
+		fmt.Println("already exists.")
+		os.Exit(0)
+	}
 	err = os.Mkdir(project_path, os.FileMode(0755))
 	handleError(err)
 	fmt.Println("done!")
@@ -57,9 +62,9 @@ func main() {
 	// Dump a Vagrantfile in that directory
 	fmt.Print("making Vagrantfile...")
 	vagrantfile_path := path.Join(project_path, "Vagrantfile")
-	file, err := os.Open(vagrantfile_path)
+	file, err := os.Create(vagrantfile_path)
 	handleError(err)
-	data, err := templates.Asset("Vagrantfile")
+	data, err := templates.Asset("assets/Vagrantfile")
 	handleError(err)
 	_, err = file.Write(data)
 	handleError(err)
@@ -68,9 +73,9 @@ func main() {
 	// Now, dump a Makefile in that directory
 	fmt.Print("making Makefile...")
 	makefile_path := path.Join(project_path, "Makefile")
-	file, err = os.Open(makefile_path)
+	file, err = os.Create(makefile_path)
 	handleError(err)
-	data, err = templates.Asset("Makefile.templ")
+	data, err = templates.Asset("assets/Makefile.templ")
 	handleError(err)
 	makefile_templ, err := template.New("makefile").Parse(string(data))
 	handleError(err)
@@ -90,10 +95,10 @@ func main() {
 		mainfile_name = "main.c"
 	}
 	mainfile_path := path.Join(project_path, mainfile_name)
-	data, err = templates.Asset(mainfile_name)
+	data, err = templates.Asset("assets/" + mainfile_name)
 	fmt.Printf("making %s...", mainfile_name)
 	handleError(err)
-	file, err = os.Open(mainfile_path)
+	file, err = os.Create(mainfile_path)
 	handleError(err)
 	_, err = file.Write(data)
 	handleError(err)
