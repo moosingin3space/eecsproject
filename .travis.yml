@@ -1,15 +1,18 @@
 language: go
-
 go:
-    - 1.5
-
+- 1.5
 env:
-    - GOOS=linux GOARCH=amd64
-    - GOOS=darwin GOARCH=amd64
-    - GOOS=windows GOARCH=amd64
-
+- GOOS=linux GOARCH=amd64
+- GOOS=darwin GOARCH=amd64
+- GOOS=windows GOARCH=amd64
 install:
-    - go get -u github.com/jteeuwen/go-bindata/...
-    - ./bundle_assets.sh
-
+- go get -u github.com/jteeuwen/go-bindata/...
+- "./bundle_assets.sh"
 script: go build -v github.com/moosingin3space/eecsproject
+deploy:
+  provider: releases
+  api_key:
+    secure: OCPKJYt2du4N4kCmbziADr6GGM5ph5vikgit+6e+ACOhAWtO/nFA1QOdeym5UdvjfvUIWY2d87JflB8ap57rplxleWeDemJ3uZpVqFJfgtsqYTALf80qb2cNfZBH2YlN7lYIyc2sK5ywlcmkeQMP8K9S4ZZ8VBsDn5Z8m+fUH5m4TCe7b7Df2fy8fTnQrSgcPAJc/SaV4WF547iOQn2mNNbv6SUjeuXlbs1p2e17R+BJuKAC7h3OGQllKlcXjkIlwWtAf/eO9hKmv5jUcg76IRN8wyrj1z2yHZ7iG1dGlqs11Lm0IBX+UuMEhNkH0NGE9Jl2J5OAyu+iBFobmtRBD1E8Wzuko9LzoDiwnP9pvoqFJV8lksBC58iVoPJ6Mig5u8fHox1jOw/HxC2B84B4lsD3WiXvulzh1DZ2gk5UkdPBKW0NyJyU4Ux+pOqnqRHa8qxFQgnpomaMjmWsVexC7t+KJRrG01oGkNFc9EaaKASi3cpK1QlrK1h/PDPtqwcazyZCSB1c67R6p0vDXez8GM3pd+3g/ZtypJ+68Jk8UZemugTRCUoyGDTgHM/BYV0Wfu9cAKmtWbNttY9rVSJgNFeDUwk79kYoJ/bm3BAcjiEPV3fzvbhdeswWmQmnyIcRcnH8aQBRvgPLrQntJGwMqWk4JmPiJ2Oii1+ESJSdrCU=
+  file: eecsproject
+  on:
+    repo: moosingin3space/eecsproject
